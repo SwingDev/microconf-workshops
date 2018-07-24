@@ -50,16 +50,17 @@ class HomeView extends React.Component<HomeViewProps, HomeViewState> {
     } else if (this.props.state === 'LOADED') {
       return (<NotesList notes={this.props.notes} />);
     } else {
-      return '';
+      return 'Init State';
     }
   }
 }
 
 const mapStateToProps = (state: AppState, ownProps: HomeViewProps) => {
+  // TODO: Use state to fill the props of the component
   return {
-    notes: state.list.notes,
-    state: state.list.state,
-    errorMessage: state.list.errorMessage
+    notes: [],
+    state: 'INIT',
+    errorMessage: ''
   };
 };
 

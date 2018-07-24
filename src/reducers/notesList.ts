@@ -18,27 +18,6 @@ export function defaultNotesListState() {
 }
 
 export function notesListReducer(state: NotesListState, action: AppActions): NotesListState {
-  if (action.type === 'NOTES_FETCH') {
-    return {
-      ...state,
-      state: 'LOADING',
-      notes: [],
-    };
-  }
-  if (action.type === 'NOTES_FETCH_SUCCESS') {
-    return {
-      ...state,
-      state: 'LOADED',
-      notes: action.notes
-    };
-  }
-  if (action.type === 'NOTES_FETCH_ERROR') {
-    return {
-      ...state,
-      state: 'ERROR',
-      notes: [],
-      errorMessage: action.errorMessage
-    };
-  }
+  // TODO: Write reducers here.
   return state;
 }
