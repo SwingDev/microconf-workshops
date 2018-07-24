@@ -1,18 +1,15 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import NotesList from '../../components/NotesList';
-import SearchComponent from 'components/Search';
 import NoteModel from '../../models/Note';
-import { actionFetchNotes, actionSearchNotes } from '../../actions';
+import { actionFetchNotes } from '../../actions';
 import { connect } from 'react-redux';
-import { NotesSearchOptions } from 'reducers/notesList';
 import { AppState } from 'reducers';
 
 const style = require('./style.scss');
 
 interface HomeViewProps {
   loadData: () => () => void,
-  searchNotes: (options: NotesSearchOptions) => void,
   notes: NoteModel[],
   state: string,
   errorMessage?: string
@@ -24,18 +21,11 @@ interface HomeViewState {
 class HomeView extends React.Component<HomeViewProps, HomeViewState> {
   constructor(props: HomeViewProps, state: HomeViewState) {
     super(props, state);
-    this.searchNotes = this.searchNotes.bind(this);
   }
   componentDidMount() {
     if (this.props.state === 'INIT') {
       this.props.loadData();
     }
-  }
-
-  searchNotes(text: string) {
-    this.props.searchNotes({
-      searchText: text
-    });
   }
 
   render() {
@@ -47,7 +37,6 @@ class HomeView extends React.Component<HomeViewProps, HomeViewState> {
         </title>
       </Helmet>
 
-      <SearchComponent onChange={this.searchNotes} />
       {this.renderNotes()}
     </section>
     );
@@ -76,8 +65,7 @@ const mapStateToProps = (state: AppState, ownProps: HomeViewProps) => {
 
 const mapDispatchToProps = (dispatch: any) => { // tslint:disable-line
   return {
-    loadData: () => dispatch(actionFetchNotes()),
-    searchNotes: (options: NotesSearchOptions) => dispatch(actionSearchNotes(options)),
+    loadData: () => dispatch(actionFetchNotes())
   };
 };
 

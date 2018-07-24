@@ -5,7 +5,6 @@ import NotesService from '../services/notes';
 export const ACTION_NOTES_FETCH = 'NOTES_FETCH';
 export const ACTION_NOTES_FETCH_SUCCESS = 'NOTES_FETCH_SUCCESS';
 export const ACTION_NOTES_FETCH_ERROR = 'NOTES_FETCH_ERROR';
-export const ACTION_NOTES_SEARCH = 'NOTES_SEARCH';
 
 export function isAction<A extends Action>(action: Action, type: string): action is A {
   return action.type === type;
@@ -25,14 +24,7 @@ export interface IActionNotesFetchError extends Action {
   errorMessage: string
 }
 
-export interface IActionSearchNotes {
-  type: 'NOTES_SEARCH',
-  options: {
-    searchText: string
-  }
-}
-
-export type AppActions = IActionNotesFetch | IActionNotesFetchSuccess | IActionNotesFetchError | IActionSearchNotes;
+export type AppActions = IActionNotesFetch | IActionNotesFetchSuccess | IActionNotesFetchError;
 
 function dispatchFetchNotesProgress(): IActionNotesFetch {
   return {
@@ -63,19 +55,6 @@ export function actionFetchNotes() {
     })
     .catch((e: Error) => {
       return dispatch(dispatchFetchNotesError(e));
-    });
-  };
-}
-
-interface SearchNotesOptions {
-  searchText: string,
-}
-
-export function actionSearchNotes(options: SearchNotesOptions) {
-  return (dispatch: Dispatch) => {
-    return dispatch({
-      type: ACTION_NOTES_SEARCH,
-      options
     });
   };
 }

@@ -29,7 +29,7 @@ export function mainReducer(state: AppState = defaultState(), action: Action) {
       notes: notesDictReducer(state.entities.notes, action),
     },
     ui: {
-      list: notesListReducer(state.ui.list, action, state.entities.notes)
+      list: notesListReducer(state.ui.list, action)
     }
   };
 }
