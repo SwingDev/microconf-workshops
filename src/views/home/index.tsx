@@ -57,9 +57,9 @@ class HomeView extends React.Component<HomeViewProps, HomeViewState> {
 
 const mapStateToProps = (state: AppState, ownProps: HomeViewProps) => {
   return {
-    notes: state.ui.list.notes.map((noteId) => state.entities.notes.byId[noteId]),
-    state: state.ui.list.state,
-    errorMessage: state.ui.list.errorMessage
+    notes: state.list.notes,
+    state: state.list.state,
+    errorMessage: state.list.errorMessage
   };
 };
 

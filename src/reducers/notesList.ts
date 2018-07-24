@@ -6,7 +6,7 @@ import NoteModel from 'models/Note';
 
 export interface NotesListState {
   state: string, // 'INIT', 'LOADING' | 'LOADED' | 'ERROR',
-  notes: number[],
+  notes: NoteModel[],
   errorMessage?: string
 }
 
@@ -29,7 +29,7 @@ export function notesListReducer(state: NotesListState, action: AppActions): Not
     return {
       ...state,
       state: 'LOADED',
-      notes: [...action.notes.map((n: NoteModel) => n.id)],
+      notes: action.notes
     };
   }
   if (action.type === 'NOTES_FETCH_ERROR') {
