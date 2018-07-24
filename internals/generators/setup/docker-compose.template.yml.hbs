@@ -1,0 +1,10 @@
+restart: unless-stopped
+build:
+  context: ./<PROJECT_DIR>
+command: yarn start
+ports:
+  - "127.0.0.1:80:8080"
+volumes:
+  - "./<PROJECT_DIR>/src:/app/src"
+  - "./<PROJECT_DIR>/server:/app/server"
+  - "./<PROJECT_DIR>/package.json:/app/package.json"

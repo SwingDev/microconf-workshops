@@ -1,0 +1,16 @@
+{
+  "presets": [
+    ["@babel/preset-env", {
+      "useBuiltIns": "entry",
+      "targets": {
+        "browsers": ["> 0.1%", "last 3 versions"]
+      }
+    }],
+    "@babel/preset-es2015",
+    "@babel/preset-react",
+    ["@babel/preset-stage-0", {
+      "decoratorsLegacy": true
+    }]
+  ],
+  "plugins": ["react-hot-loader/babel"]
+}

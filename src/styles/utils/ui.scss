@@ -1,0 +1,119 @@
+@import '~styles/base/settings';
+@import '~styles/base/colors';
+
+//=======================
+// Form fields
+//=======================
+
+@mixin placeholder {
+  $placeholders: ':-webkit-input' ':-moz' '-moz' '-ms-input';
+
+  @each $placeholder in $placeholders {
+    &:#{$placeholder}-placeholder {
+      @content;
+    }
+  }
+}
+
+//=======================
+// Typography
+//=======================
+
+@function remify($px) {
+  @return ($px / $base-font-size) * 1rem;
+}
+
+@mixin list-reset {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@mixin link {
+  font-size: 16px;
+  letter-spacing: 0;
+  color: $coral;
+  transition: color $duration;
+
+  // This ensures that hover will only work,
+  // when it's a non-touch device (html has
+  // 'no-touchevents' class)
+  :global(.no-touchevents) &:hover {
+    color: $red-damask;
+  }
+}
+
+//=======================
+// Scaling
+//=======================
+
+@function calc-vw($size, $base-size) {
+  @return ($size / $base-size) * 100 * 1vw;
+}
+
+@function calc-vh($size, $base-size) {
+  @return ($size / $base-size) * 100 * 1vh;
+}
+
+@function calc-vm($size, $base-size) {
+  @return ($size / $base-size) * 100 * 1vm;
+}
+
+@function calc-vmin($size, $base-size) {
+  @return ($size / $base-size) * 100 * 1vmin;
+}
+
+@function calc-vmax($size, $base-size) {
+  @return ($size / $base-size) * 100 * 1vmax;
+}
+
+// Maintain full page height on mobile device browsers
+// using viewport height unit.
+@mixin get-fixed-vh($prop, $size, $offset: 0) {
+
+  @media screen and (max-device-aspect-ratio: 3 / 4) {
+    #{$prop}: calc(#{$size * 1vw * 1.333} - #{$offset});
+  }
+
+  @media screen and (max-device-aspect-ratio: 2 / 3) {
+    #{$prop}: calc(#{$size * 1vw * 1.5} - #{$offset});
+  }
+
+  @media screen and (max-device-aspect-ratio: 10 / 16) {
+    #{$prop}: calc(#{$size * 1vw * 1.6} - #{$offset});
+  }
+
+  @media screen and (max-device-aspect-ratio: 9 / 16) {
+    #{$prop}: calc(#{$size * 1vw * 1.778} - #{$offset});
+  }
+
+  #{$prop}: calc(#{$size * 1vh} - #{$offset});
+}
+
+//=======================
+// Images
+//=======================
+
+@mixin image-placeholder {
+  position: relative;
+  background-color: $catskill-white;
+
+  &::before {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 24px;
+    height: 24px;
+    margin-top: -12px;
+    margin-left: -12px;
+    background: url('images/icons/image-broken.svg') no-repeat;
+    content: '';
+  }
+}
+
+@mixin avatar($size: 64px) {
+  width: $size;
+  height: $size;
+  border-radius: 50%;
+  object-fit: cover;
+}

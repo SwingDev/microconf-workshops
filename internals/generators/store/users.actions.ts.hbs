@@ -1,0 +1,24 @@
+import { Action } from 'redux';
+import actionCreatorFactory from 'typescript-fsa';
+
+export interface IUser {
+  id: string;
+  firstName: string;
+  lastName: string;
+}
+
+export interface IUserPayload {
+  id: string;
+}
+
+export interface IFetchUserByIdAction extends Action {
+  payload: IUserPayload;
+}
+
+const actionCreator = actionCreatorFactory();
+
+export const FetchUserById = actionCreator.async<
+  IUserPayload,
+  IUser,
+  {}
+>('FETCH_USER_BY_ID');

@@ -1,0 +1,46 @@
+import { applyMiddleware, compose, createStore } from 'redux';
+import { createLogger } from 'redux-logger';
+
+import { PROD_ENV } from 'root/constants';
+
+import rootReducer, { RootState } from './reducers';
+
+// tslint:disable-next-line no-any
+const windowIfDefined = typeof window === 'undefined' ? null : window as any;
+
+const composeEnhancers =
+  !PROD_ENV && typeof window === 'object' && windowIfDefined.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?
+    windowIfDefined.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
+    : compose;
+
+const middlewares = [];
+
+if (!PROD_ENV) {
+  middlewares.push(
+    createLogger({
+      diff: true
+    })
+  );
+}
+
+const enhancer = composeEnhancers(
+  applyMiddleware(...middlewares)
+);
+
+const store = createStore(
+  rootReducer,
+  enhancer
+);
+
+if (module.hot) {
+  module.hot.accept('./reducers', () => {
+    const nextRootReducer = require('./reducers');
+    store.replaceReducer(nextRootReducer);
+  });
+}
+
+export {
+  RootState
+};
+
+export default store;

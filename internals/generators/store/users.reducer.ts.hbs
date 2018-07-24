@@ -1,0 +1,57 @@
+import { reducerWithInitialState } from 'typescript-fsa-reducers';
+
+import { FetchUserById, IUser } from './actions';
+
+export interface IAsync {
+  isFetching?: boolean;
+  isFetched?: boolean;
+  fetchingError?: {} | undefined
+}
+
+export interface IExtendedUser extends IUser, IAsync {}
+
+export interface IUsersState {
+  [key: string]: IExtendedUser;
+}
+
+const INITIAL_STATE: IUsersState = {};
+
+const reducer = reducerWithInitialState(INITIAL_STATE)
+  .case(FetchUserById.done, (state, data) => {
+    const userData: IUser = data.result;
+
+    return {
+      ...state,
+      [userData.id]: {
+        ...state[userData.id],
+        isFetching: false,
+        isFetched: true,
+        fetchingError: undefined,
+        ...userData
+      }
+    };
+  })
+  .case(FetchUserById.started, (state, data) => ({
+      ...state,
+      [data.id]: {
+        ...state[data.id],
+        isFetching: true,
+        isFetched: false,
+        fetchingError: undefined
+      }
+    }
+  ))
+  .case(FetchUserById.failed, (state, data) => ({
+      ...state,
+      [data.params.id]: {
+        ...state[data.params.id],
+        isFetching: false,
+        isFetched: false,
+        fetchingError: data.error
+      }
+    }
+  ));
+
+reducer.build();
+
+export default reducer;

@@ -1,0 +1,12 @@
+@import '~styles/base/settings';
+@import '~styles/base/colors';
+
+//=======================
+// Headings
+//=======================
+
+@for $i from 0 through 6 {
+  h#{$i} {
+    font-family: $base-font-family;
+  }
+}

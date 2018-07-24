@@ -1,0 +1,41 @@
+@mixin fade-in($duration: .2s, $opacity: 1) {
+  opacity: $opacity;
+  visibility: visible;
+  transition: opacity $duration;
+}
+
+@mixin fade-out($duration: .2s, $easing: linear) {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity $duration $easing 0s, visibility 0s $easing $duration;
+}
+
+@mixin slide-in($duration: .2s, $translateX: 0, $translateY: 0) {
+  opacity: 1;
+  visibility: visible;
+  transform: translate3d($translateX, $translateY, 0);
+  transition: opacity $duration, transform $duration;
+}
+
+@mixin slide-out($translateY: 0, $duration: .2s, $easing: linear, $translateX: 0) {
+  opacity: 0;
+  visibility: hidden;
+  transform: translate3d($translateX, $translateY, 0);
+  transition: opacity $duration $easing 0s, transform $duration $easing 0s, visibility 0s $easing $duration;
+}
+
+@mixin scale-up($duration: .2s, $easing: linear) {
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1);
+  transition: opacity $duration, transform $duration $easing;
+  transform-origin: 50% 0;
+}
+
+@mixin scale-down($scale: 0, $duration: .2s, $easing: linear) {
+  opacity: 0;
+  visibility: hidden;
+  transform: scale($scale);
+  transition: opacity $duration, transform $duration $easing, visibility 0s $duration;
+  transform-origin: 50% 0;
+}

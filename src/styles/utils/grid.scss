@@ -1,0 +1,168 @@
+@import '~styles/base/settings';
+
+//=======================
+// Mixins
+//=======================
+
+@mixin clearfix {
+  &::before,
+  &::after {
+    display: table;
+    content: ' ';
+  }
+
+  &::after {
+    clear: both;
+  }
+}
+
+@mixin container {
+  @include clearfix;
+
+  margin-right: auto;
+  margin-left: auto;
+  padding: 0 $grid-gutter / 2;
+
+  @media #{$screen-sm} {
+    width: $container-sm + $grid-gutter;
+  }
+
+  @media #{$screen-md} {
+    width: $container-md + $grid-gutter;
+  }
+
+  @media #{$screen-lg} {
+    width: $container-lg + $grid-gutter;
+  }
+}
+
+@mixin row {
+  @include clearfix;
+
+  margin-right: -($grid-gutter / 2);
+  margin-left: -($grid-gutter / 2);
+}
+
+@mixin row-gutter {
+  margin-right: -($grid-gutter / 2);
+  margin-left: -($grid-gutter / 2);
+}
+
+@mixin row-flex {
+  @include row-gutter;
+
+  display: flex;
+  flex-flow: row wrap;
+}
+
+@mixin row-raw-flex {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+@mixin column($size) {
+  float: left;
+  width: ($size * 100% / $grid-columns);
+  min-height: 1px;
+  padding-right: $grid-gutter / 2;
+  padding-left: $grid-gutter / 2;
+}
+
+@mixin column-raw($size) {
+  float: left;
+  width: ($size * 100% / $grid-columns);
+  min-height: 1px;
+}
+
+@mixin column-no-float($size) {
+  width: ($size * 100% / $grid-columns);
+  padding-right: $grid-gutter / 2;
+  padding-left: $grid-gutter / 2;
+}
+
+@mixin column-raw-no-float($size) {
+  width: ($size * 100% / $grid-columns);
+}
+
+@mixin column-flex($size) {
+  flex: 0 0 ($size * 100% / $grid-columns);
+  max-width: ($size * 100% / $grid-columns);
+  padding-right: $grid-gutter / 2;
+  padding-left: $grid-gutter / 2;
+}
+
+@mixin column-raw-flex($size) {
+  flex: 0 0 ($size * 100% / $grid-columns);
+  max-width: ($size * 100% / $grid-columns);
+}
+
+@mixin column-offset($size, $dir: 'right') {
+  @if $dir == 'left' {
+    padding-left: calc(#{($size * 100% / $grid-columns)} + #{($grid-gutter / 2)});
+  }
+  @else if $dir == 'right' {
+    padding-right: calc(#{($size * 100% / $grid-columns)} + #{($grid-gutter / 2)});
+  }
+}
+
+@mixin make-columns-grid($quantity) {
+  @for $i from 1 through $quantity {
+    .col-xs-#{$i},
+    .col-sm-#{$i},
+    .col-md-#{$i},
+    .col-lg-#{$i} {
+      @extend %col;
+
+      width: 100%;
+    }
+  }
+}
+
+@mixin generate-columns($quantity, $prefix) {
+  @for $i from 1 through $quantity {
+    .col-#{$prefix}-#{$i} {
+      width: ($i * 100% / $quantity);
+    }
+  }
+}
+
+@mixin generate-columns-media($breakpoint, $prefix) {
+  @media #{$screen-sm} {
+    @include generate-columns(12, $prefix);
+
+    .container {
+      width: $container-sm + $grid-gutter;
+    }
+  }
+}
+
+//=======================
+// Placeholders
+//=======================
+
+%clearfix {
+  @include clearfix;
+}
+
+%row {
+  @extend %clearfix;
+
+  margin-right: -($grid-gutter / 2);
+  margin-left: -($grid-gutter / 2);
+}
+
+%col {
+  float: left;
+  padding-right: $grid-gutter / 2;
+  padding-left: $grid-gutter / 2;
+}
+
+%container-fluid {
+  @include clearfix;
+
+  width: 100%;
+}
+
+%container {
+  @include container;
+}

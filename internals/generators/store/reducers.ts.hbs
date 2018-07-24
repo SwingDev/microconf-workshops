@@ -1,0 +1,11 @@
+import { combineReducers } from 'redux';
+
+import usersReducer, { IUsersState } from './users/reducer';
+
+export interface RootState {
+  readonly users: IUsersState;
+}
+
+export default combineReducers<RootState | undefined>({
+  users: usersReducer
+});

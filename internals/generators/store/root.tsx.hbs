@@ -1,0 +1,36 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Router } from 'react-router-dom';
+import { Provider } from 'react-redux';
+
+import 'normalize.css';
+import 'styles/main.scss';
+
+import Root from 'views';
+import store from './store';
+
+import history from 'utils/history';
+
+import { ROOT_NODE } from 'root/constants';
+
+const render = () => {
+  ReactDOM.render(
+    (
+      <Provider store={store}>
+        <Router history={history}>
+          <Root />
+        </Router>
+      </Provider>
+    ),
+    ROOT_NODE as HTMLElement,
+  );
+};
+
+if (module.hot) {
+  module.hot.accept(() => {
+    ReactDOM.unmountComponentAtNode(ROOT_NODE as HTMLElement);
+    render();
+  });
+}
+
+render();
