@@ -14,4 +14,4 @@ You're ready to go!
 
 ## Slides from the presentation
 
-Slides are here: [./slides.pdf](SLIDES)
+Slides are here: [SLIDES](./slides.pdf)
