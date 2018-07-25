@@ -3,7 +3,7 @@
 ## Quickstart
 
 * clone this repository
-* run `yarn setup`
+* run `yarn install`
 
 You're ready to go!
 
@@ -11,3 +11,7 @@ You're ready to go!
 
 * run `yarn start`
 * go to [http://localhost:3000](http://localhost:3000)
+
+## Slides from the presentation
+
+Slides are here: [./slides.pdf](SLIDES)
